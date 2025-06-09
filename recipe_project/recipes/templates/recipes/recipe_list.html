@@ -1,0 +1,63 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recipes List</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body id="bg" style="
+    background-image: url('https://i.pinimg.com/736x/33/ef/8b/33ef8b9c0b902154a6cd4103a21275ef.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+">
+
+    <div style="
+        background-color: rgba(0, 0, 0, 0.6);
+        max-width: 300px;
+        margin: 50px auto;
+        padding: 30px;
+        border-radius: 12px;
+        color: white;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    ">
+        <h1 style="text-align: center;">List of Recipes</h1>
+
+        {% if recipes %}
+            <ul style="list-style-type: none; padding: 0; text-align: center;">
+                {% for recipe in recipes %}
+                    <li style="margin: 10px 0;">
+                        <a href="{% url 'recipe_detail' recipe.id %}" style="color: #ffcc00; font-size: 1.2em; text-decoration: none;">
+                            {{ recipe.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p style="text-align: center;">No recipes available.</p>
+        {% endif %}
+
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="{% url 'main' %}" style="
+                background-color: #28a745;
+                color: white;
+                padding: 10px 20px;
+                text-decoration: none;
+                border-radius: 5px;
+                font-size: 16px;
+                display: inline-block;
+                transition: background-color 0.3s;
+            " onmouseover="this.style.backgroundColor='#218838'" onmouseout="this.style.backgroundColor='#28a745'">
+                Back to Home
+            </a>
+        </div>
+        
+    </div>
+    
+</body>
+</html>
+

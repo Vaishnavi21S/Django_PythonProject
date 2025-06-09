@@ -1,0 +1,154 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ recipe.name }}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            background-image: url('https://media.istockphoto.com/id/1313187927/vector/cooking-food-and-vegetables-background.jpg?s=612x612&w=0&k=20&c=qC9BPv5TLtYEh-_myYacOZSugAEUx4S_uq5s6H33-ss=');
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #3e3e3e;
+        }
+
+        .container {
+            background-color: rgba(255, 248, 240, 0.95);
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #d87c6a; /* Soft coral */
+        }
+
+        h3 {
+            color: #5f7161; /* Sage green */
+            text-align: center;
+        }
+
+        .instructions, .servings-form {
+            margin-bottom: 20px;
+        }
+
+        .servings-form input {
+            padding: 5px;
+            width: 60px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .servings-form button {
+            padding: 6px 12px;
+            background-color: #5f7161; /* Sage green */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .servings-form button:hover {
+            background-color: #4b594f;
+        }
+
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+
+        .ingredients, .image-section {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .ingredients ul {
+            padding-left: 20px;
+        }
+
+        .image-section img {
+            width: 100%;
+            max-width: 350px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-link {
+            background-color: #a39171; /* Warm taupe */
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .back-link:hover {
+            background-color: #86775e;
+        }
+
+        .footer-thanks {
+            text-align: center;
+            margin-top: 40px;
+            color: #d87c6a; /* Soft coral */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>{{ recipe.name }}</h1>
+
+        <div class="instructions">
+            <h3>Instructions:</h3>
+            <p>{{ recipe.instructions }}</p>
+        </div>
+
+        <form method="get" class="servings-form">
+            <label for="servings">Servings:</label>
+            <input type="number" id="servings" name="servings" value="{{ servings }}" min="1">
+            <button type="submit">Update</button>
+        </form>
+
+        <div class="flex-container">
+            <!-- Ingredients Section -->
+            <div class="ingredients">
+                <h3>Ingredients:</h3>
+                <ul>
+                    {% for ingredient in ingredients %}
+                        <li>{{ ingredient.quantity }} {{ ingredient.unit }} of {{ ingredient.name }}</li>
+                    {% empty %}
+                        <li>No ingredients available.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Image Section -->
+            {% if recipe.image %}
+            <div class="image-section">
+                <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}">
+            </div>
+            {% endif %}
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="{% url 'recipe_list' %}" class="back-link">Back to Recipes</a>
+        </div>
+
+        <h1 class="footer-thanks"><b>Thank You!</b></h1>
+    </div>
+
+</body>
+</html>
